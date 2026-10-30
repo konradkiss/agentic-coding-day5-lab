@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /*
- * Stop hook: the agent is done only when the checks pass. Once ts/betuvel.ts exists, every case in cases.json must
+ * Stop hook: the agent is done only when the checks pass. Once ts/number-words.ts exists, every case in cases.json must
  * pass; the word counter's tests must always pass (the benchmark itself is too slow to run here). While a check
  * fails, the agent goes back to work, at most MAX_ROUNDS times in a row; then it is over to the user.
  * The round count per session lives in one file in the system's temp folder.
@@ -22,12 +22,12 @@ const state = load();
 const rounds = input.stop_hook_active ? Number(state[session] ?? 0) : 0;
 
 const failures = [];
-if (existsSync(resolve(root, 'ts', 'betuvel.ts'))) {
+if (existsSync(resolve(root, 'ts', 'number-words.ts'))) {
   const { status, out } = runCheck();
   if (status !== 0) failures.push(`npm run check (the port) fails:\n${out}`);
 }
-const words = runNode(['--test', '--test-reporter=dot', 'szavak/gyakori.test.ts']);
-if (words.status !== 0) failures.push(`the word counter's tests (szavak/gyakori.test.ts) fail:\n${words.out}`);
+const words = runNode(['--test', '--test-reporter=dot', 'wordcount/top-words.test.ts']);
+if (words.status !== 0) failures.push(`the word counter's tests (wordcount/top-words.test.ts) fail:\n${words.out}`);
 
 if (!failures.length || rounds >= MAX_ROUNDS) {
   delete state[session];

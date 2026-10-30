@@ -4,7 +4,7 @@ Az Agentic Coding sorozat 5. alkalmának gyakorló repója (2026. november 3.).
 
 ## A program
 
-A `python/betuvel.py` egy egész számot betűvel ír ki, ahogy a csekken vagy a számlán szokás:
+A `python/number_words.py` egy egész számot betűvel ír ki, ahogy a csekken vagy a számlán szokás:
 
 ```
 1234        → ezerkétszázharmincnégy
@@ -16,7 +16,7 @@ Ezt portoljuk TypeScriptre, együtt, lépésről lépésre. A szabályokat a fá
 
 ## A lassú szószámláló
 
-A `szavak/gyakori.ts` megmondja, melyik szó fordul elő a legtöbbször egy szövegben. Helyesen működik, de lassú: egy 200 000 szavas szövegen pár másodpercig dolgozik. Ezt gyorsítjuk fel úgy, hogy az eredmény ne változzon.
+A `wordcount/top-words.ts` megmondja, melyik szó fordul elő a legtöbbször egy szövegben. Helyesen működik, de lassú: egy 200 000 szavas szövegen pár másodpercig dolgozik. Ezt gyorsítjuk fel úgy, hogy az eredmény ne változzon.
 
 Az `npm run bench` három különböző szövegen méri az időt, és minden eredményt összevet az elvárttal. Ha bármelyik eredmény hibás, a mérés nem számít. Egyenlő gyakoriságnál a szavak magyar ábécérendben követik egymást (c, cs, d, dz, dzs…), ezért a sima karakterkód szerinti rendezés nem elég.
 

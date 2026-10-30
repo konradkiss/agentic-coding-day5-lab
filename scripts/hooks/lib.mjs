@@ -35,7 +35,7 @@ export function runCheck() {
 const PROTECTED = [
   /^python(\/|$)/,
   /^cases\.json$/,
-  /^szavak\/(bench\.mjs|szoveg\.mjs|make_expected\.mjs|expected\.json|[^/]*\.test\.ts)$/,
+  /^wordcount\/(bench\.mjs|text\.mjs|make_expected\.mjs|expected\.json|[^/]*\.test\.ts)$/,
   /^scripts(\/|$)/,
   /^\.claude(\/|$)/,
   /^\.codex(\/|$)/,

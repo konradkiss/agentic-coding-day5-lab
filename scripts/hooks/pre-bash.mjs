@@ -33,7 +33,7 @@ for (const [, target] of cmd.matchAll(REDIRECT)) {
 
 /* inline code (node -e, python -c, a heredoc) that names a protected file and a write function */
 if (WRITE_API.test(cmd)) {
-  const named = [...cmd.matchAll(/[\w./-]*(python\/[\w./-]+|cases\.json|szavak\/[\w./-]+|scripts\/[\w./-]+|package\.json|\.claude\/[\w./-]*|\.codex\/[\w./-]*)/g)].map((m) => m[0]);
+  const named = [...cmd.matchAll(/[\w./-]*(python\/[\w./-]+|cases\.json|wordcount\/[\w./-]+|scripts\/[\w./-]+|package\.json|\.claude\/[\w./-]*|\.codex\/[\w./-]*)/g)].map((m) => m[0]);
   const rel = hits(named);
   if (rel) refuse(rel);
 }
