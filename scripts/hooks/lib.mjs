@@ -18,16 +18,29 @@ export function block(message) {
   process.exit(2);
 }
 
+export function runNode(args) {
+  const r = spawnSync(process.execPath, ['--disable-warning=ExperimentalWarning', ...args], { cwd: root, encoding: 'utf8' });
+  return { status: r.status, out: `${r.stdout}${r.stderr}`.trim() };
+}
+
 export function runCheck() {
   const r = spawnSync(process.execPath, ['--disable-warning=ExperimentalWarning', resolve(root, 'scripts', 'check.mjs')], { cwd: root, encoding: 'utf8' });
   return { status: r.status, out: `${r.stdout}${r.stderr}`.trim() };
 }
 
 /*
- * What decides whether the port is right, and the hooks that guard it. The original program and the cases are the
- * specification; changing them makes the port pass without making it right.
+ * What decides whether the work is right, and the hooks that guard it: the port's original program and cases, and
+ * the word counter's tests, benchmark and expected results. Changing them makes the work pass without making it right.
  */
-const PROTECTED = [/^python(\/|$)/, /^cases\.json$/, /^scripts(\/|$)/, /^\.claude(\/|$)/, /^\.codex(\/|$)/, /^package\.json$/];
+const PROTECTED = [
+  /^python(\/|$)/,
+  /^cases\.json$/,
+  /^szavak\/(bench\.mjs|szoveg\.mjs|make_expected\.mjs|expected\.json|[^/]*\.test\.ts)$/,
+  /^scripts(\/|$)/,
+  /^\.claude(\/|$)/,
+  /^\.codex(\/|$)/,
+  /^package\.json$/,
+];
 
 /*
  * The file's path inside the repository. The agent may name the file through another spelling of the same
@@ -43,4 +56,4 @@ export function repoPath(file, cwd = process.cwd()) {
 export const isProtected = (rel) => PROTECTED.some((re) => re.test(rel.toLowerCase()));
 
 export const PROTECTED_MESSAGE = (rel) =>
-  `Blocked: ${rel} is part of the specification (the Python original, cases.json) or of the checks. Change the port, not what it is measured against; if you think a case is wrong, stop and tell the user.`;
+  `Blocked: ${rel} is part of what the work is measured against (the Python original, cases.json, the word counter's tests and benchmark) or of the checks. Change the code, not the measure; if you think a case is wrong, stop and tell the user.`;
