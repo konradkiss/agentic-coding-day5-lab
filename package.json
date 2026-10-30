@@ -1,0 +1,14 @@
+{
+  "name": "day5-lab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Nem vibe coding: a small Python program to port to TypeScript, with its cases as the referee",
+  "type": "module",
+  "engines": {
+    "node": ">=22.18"
+  },
+  "scripts": {
+    "check": "node --disable-warning=ExperimentalWarning scripts/check.mjs",
+    "test": "node --disable-warning=ExperimentalWarning --test \"ts/**/*.test.ts\""
+  }
+}
