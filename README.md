@@ -2,6 +2,11 @@
 
 Az Agentic Coding sorozat 5. alkalmának gyakorló repója (2026. november 3.).
 
+```
+git clone https://github.com/konradkiss/agentic-coding-day5-lab.git
+cd agentic-coding-day5-lab
+```
+
 ## A program
 
 A `python/number_words.py` egy egész számot betűvel ír ki, ahogy a csekken vagy a számlán szokás:
@@ -19,6 +24,21 @@ Ezt portoljuk TypeScriptre, együtt, lépésről lépésre. A szabályokat a fá
 A `wordcount/top-words.ts` megmondja, melyik szó fordul elő a legtöbbször egy szövegben. Helyesen működik, de lassú: egy 200 000 szavas szövegen pár másodpercig dolgozik. Ezt gyorsítjuk fel úgy, hogy az eredmény ne változzon.
 
 Az `npm run bench` három különböző szövegen méri az időt, és minden eredményt összevet az elvárttal. Ha bármelyik eredmény hibás, a mérés nem számít. Egyenlő gyakoriságnál a szavak magyar ábécérendben követik egymást (c, cs, d, dz, dzs…), ezért a sima karakterkód szerinti rendezés nem elég.
+
+## A záró feladat: egy valódi hiba
+
+A [marked](https://github.com/markedjs/marked) Markdownból HTML-t készítő könyvtár. Egy olyan hibáját keressük meg és javítjuk ki, amelyet a fejlesztői már kijavítottak. A javítás előtti változatot töltjük le friss git-repóként, a marked saját előzményei nélkül, így a megoldás nem olvasható ki a logból.
+
+```
+npm run bug:setup     # a marked javítás előtti változata a ../day5-marked mappába, telepítéssel együtt
+npm run bug:referee   # a javítás saját tesztje: letölti és lefuttatja
+```
+
+Ezzel a hibajelentéssel dolgozunk:
+
+> On our documentation site, some pages show raw HTML where text should have been escaped: a `<` in a sentence ends up in the page as a real tag and breaks the layout. It seems to happen mostly on pages that talk about keyboard shortcuts. We render with `marked.parse(markdown)` and default options. I can't share the pages, sorry.
+
+Az agentet a `../day5-marked` mappában indítsd. Ott a marked saját `AGENTS.md`-je érvényes, ennek a repónak a hookjai nem. A `bug:referee`-t csak a végén futtasd: a javítás tesztfájljait a `../day5-marked` mappába tölti le, és onnantól az agent is látja őket.
 
 ## Ami kell hozzá
 
