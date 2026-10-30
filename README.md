@@ -59,7 +59,7 @@ python3 -m unittest discover python  # az eredeti ugyanazokkal az esetekkel
 
 A `cases.json` 195 esetet tartalmaz. Az eredetinek és a portnak is mindegyiken át kell mennie. A szószámlálót a tesztjei, a mérőszkript és az elvárt eredmények ellenőrzik.
 
-Claude Code és Codex alatt az agent ezek egyikét sem írhatja át: a `.claude/settings.json` és a `.codex/hooks.json` hookjai visszautasítják. opencode alatt ezt csak az `AGENTS.md` kéri. Claude Code és Codex alatt a Stop hook visszaküldi dolgozni az agentet, ha a szószámláló tesztjei elbuknak, vagy ha a port már megvan, és az `npm run check` piros. Öt sikertelen kör után a feladat visszakerül hozzád.
+Claude Code és Codex alatt az agent ezek egyikét sem írhatja át: a `.claude/settings.json` és a `.codex/hooks.json` hookjai visszautasítják. opencode alatt ezt csak az `AGENTS.md` kéri. A Codex az első indításkor megkérdezi, megbízol-e a mappa hookjaiban; a hookok csak akkor futnak, ha igent mondasz. Claude Code és Codex alatt a Stop hook visszaküldi dolgozni az agentet, ha a szószámláló tesztjei elbuknak, vagy ha a port már megvan, és az `npm run check` piros. Öt sikertelen kör után a feladat visszakerül hozzád.
 
 ## Ha lemaradtál
 
