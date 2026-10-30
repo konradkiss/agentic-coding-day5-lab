@@ -40,6 +40,10 @@ Ezzel a hibajelentéssel dolgozunk:
 
 Az agentet a `../day5-marked` mappában indítsd. Ott a marked saját `AGENTS.md`-je érvényes, ennek a repónak a hookjai nem. A `bug:referee`-t csak a végén futtasd: a javítás tesztfájljait a `../day5-marked` mappába tölti le, és onnantól az agent is látja őket.
 
+## Házi feladat
+
+A `homework/` mappában: mérj meg egy beállítást a saját kódodon. A leírás és a promptok a [homework/README.md](homework/README.md)-ben vannak, a futtatást és a táblázatot két script végzi.
+
 ## Ami kell hozzá
 
 - Node.js 22.18 vagy újabb. Nincs függőség, `npm install` sem kell: a Node közvetlenül futtatja a TypeScriptet.
