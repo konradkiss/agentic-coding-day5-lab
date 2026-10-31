@@ -53,7 +53,7 @@ A `homework/` mappában: mérj meg egy beállítást a saját kódodon. A leír�
 ## Parancsok
 
 ```
-npm run check                        # a bíró: a cases.json minden esete a TypeScript-porton
+npm run check                        # a referee: a cases.json minden esete a TypeScript-porton
 npm test                             # a port és a szószámláló tesztjei
 npm run bench                        # a szószámláló sebességmérése
 python3 -m unittest discover python  # az eredeti ugyanazokkal az esetekkel
