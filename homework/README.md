@@ -2,11 +2,13 @@
 
 Egy feladat a saját repódból, két beállítás, például két modell, mindkettő legalább háromszor. Minden futás a repód egy friss, git-előzmények nélküli másolatán dolgozik, és a végén egy referee dönti el, jó lett-e az eredmény: egy parancs, amelyet nem az agent írt. A `bench.mjs` lefuttatja a futásokat, a `summary.mjs` táblázatot készít belőlük. A feladatot, a referee-t és a két beállítást te választod ki.
 
-Kb. 1–2 óra. A futások pénzbe kerülnek: a laborban egy port 29–38 cent volt Opus 5.5-tel. Először egy futással próbáld ki, hogy minden a helyén van-e.
+Kb. 1–2 óra. A futások pénzbe kerülnek: a laborban egy kis portolási feladat 29–38 cent volt Opus 5.5-tel. Először egy futással próbáld ki, hogy minden a helyén van-e.
+
+Ha nincs kéznél jó feladat, lent van egy rövidebb változat is. Abban a saját munkádban méred a cache-t és a context window-t.
 
 ## 1. Egy feladat referee-vel
 
-A legjobb feladat egy olyan hiba, amelyet a repódban már kijavítottatok, és a javítással együtt teszt is készült. Ilyenkor a futás a javítás előtti állapotból indul, és a referee a javítás saját tesztje, amelyet az agent munka közben nem lát. A másolatban nincsenek meg a git-előzmények, így a javítást a logból sem tudja kiolvasni. Ugyanígy működött a záró feladat a markedben.
+A legjobb feladat egy olyan hiba, amelyet a repódban már kijavítottatok, és a javítással együtt teszt is készült. Ilyenkor a futás a javítás előtti állapotból indul, és a referee a javítás saját tesztje, amelyet az agent munka közben nem lát. A másolatban nincsenek meg a git-előzmények, így a javítást a logból sem tudja kiolvasni.
 
 Kerestesd meg az agenteddel, a saját repódban:
 
@@ -72,7 +74,7 @@ A Codex nem ír költséget, csak tokeneket; az opencode a modell szolgáltatój
 
 ## 4. A futások
 
-Beállításonként legalább háromszor. A laborban ugyanaz a port 8 és 13 kör között szórt, egy futásból nem lehet következtetni.
+Beállításonként legalább háromszor. A laborban ugyanaz a portolási feladat 8 és 13 kör között szórt, egy futásból nem lehet következtetni.
 
 ```
 node homework/bench.mjs --repo ../my-repo --ref <fix>^ --prompt ../hw/task.md \
@@ -98,9 +100,20 @@ A bench-results mappában egy mérés eredménye van: a results.jsonl futásonk�
 
 Jövő keddre hozd el a táblázatot, és egy mondatban azt, hogy mit mértél, melyik lett jobb, és erre számítottál-e.
 
-## Gyakorlásnak: a labor záró feladata
+## Rövidebb változat: a cache és a context window a saját munkádban
 
-Ha előbb egy ismert feladaton próbálnád ki, a marked hibája kész példa. A javító commit `4562b6f`, a teszt két fájl:
+Ehhez nem kell referee, csak a szokásos munkád Claude Code-dal.
+
+1. Egy hosszabb session közben írd be a `/context` parancsot. Írd fel, mekkora a context window, és mennyit foglal benne a system prompt, a toolok, az MCP-toolok és a beszélgetés.
+2. A session végén nézd meg a `/usage`-t. A „Prompt cache (main)” sor mutatja, az input tokenek hány százaléka jött a cache-ből.
+3. Headless módban (`claude -p … --output-format json`) a JSON `usage` mezőiben külön látszik a `cache_read_input_tokens` és a `cache_creation_input_tokens`. Futtasd így ugyanazt a kérdést kétszer, öt percen belül, és hasonlítsd össze a két futás számait.
+4. Próbálj ki egy változtatást: válts modellt, változtass a toolokon, vagy futtass `/compact`-ot. Utána nézd meg újra a „Prompt cache (main)” sort.
+
+Jövő keddre hozz egy mondatot arról, mi foglalta a legtöbb helyet a context window-ban, és mikor esett le a cache aránya.
+
+## Gyakorlásnak: egy valódi hiba a markedben
+
+Ha előbb egy ismert feladaton próbálnád ki, a marked egyik javított hibája kész példa. A marked egy JavaScript-könyvtár, ami Markdownból HTML-t készít. A javító commit `4562b6f`, a teszt két fájl:
 
 ```
 git clone https://github.com/markedjs/marked.git ../marked
@@ -108,7 +121,17 @@ mkdir -p ../hw/hidden
 git -C ../marked archive 4562b6f test/specs/new/unclosed_inline_raw_tag.md test/specs/new/unclosed_inline_raw_tag.html | tar -x -C ../hw/hidden
 ```
 
-A `../hw/task.md`-be a nap hibajelentése kerül a promptjával együtt; a hibajelentés a labor README-jében is megvan, a prompt az aicode.page/5 laptopnézetében. A referee ellenőrzése és egy futás:
+Ezt a promptot írd a `../hw/task.md` fájlba. A benne lévő hibajelentés a labor README-jében is megvan.
+
+```
+Egy felhasználó ezt a hibát jelentette:
+
+On our documentation site, some pages show raw HTML where text should have been escaped: a `<` in a sentence ends up in the page as a real tag and breaks the layout. It seems to happen mostly on pages that talk about keyboard shortcuts. We render with `marked.parse(markdown)` and default options. I can't share the pages, sorry.
+
+Keresd meg az okát. Mielőtt bármit javítasz, írj egy tesztet, amely a jelentésben leírt tünetet reprodukálja, és elbukik. A végén írd le, mennyire vagy biztos benne, hogy ez az a hiba, amelyet a felhasználó látott, és miért.
+```
+
+A referee ellenőrzése és egy futás:
 
 ```
 node homework/bench.mjs --repo ../marked --ref 4562b6f^ --prompt ../hw/task.md \
