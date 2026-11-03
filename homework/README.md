@@ -76,13 +76,15 @@ A Codex nem ír költséget, csak tokeneket; az opencode a modell szolgáltatój
 
 Beállításonként legalább háromszor. A laborban ugyanaz a portolási feladat 8 és 13 kör között szórt, egy futásból nem lehet következtetni.
 
+A `--` utáni részt a script az agentnek adja tovább. Claude Code-nál a `--setting-sources project,local` kihagyja a globális beállításaidat (a hookjaidat és a saját CLAUDE.md-det), a `--strict-mcp-config` pedig az MCP-szervereidet. Így a futás csak azt látja, ami a repóban van.
+
 ```
 node homework/bench.mjs --repo ../my-repo --ref <fix>^ --prompt ../hw/task.md \
   --hidden ../hw/hidden --setup "npm ci" --referee "<test command>" \
-  --variant opus --runs 3 -- --model opus --allowedTools "Bash(npm test *)"
+  --variant opus --runs 3 -- --model opus --setting-sources project,local --strict-mcp-config --allowedTools "Bash(npm test *)"
 node homework/bench.mjs --repo ../my-repo --ref <fix>^ --prompt ../hw/task.md \
   --hidden ../hw/hidden --setup "npm ci" --referee "<test command>" \
-  --variant sonnet --runs 3 -- --model sonnet --allowedTools "Bash(npm test *)"
+  --variant sonnet --runs 3 -- --model sonnet --setting-sources project,local --strict-mcp-config --allowedTools "Bash(npm test *)"
 node homework/summary.mjs
 ```
 
@@ -141,7 +143,7 @@ node homework/bench.mjs --repo ../marked --ref 4562b6f^ --prompt ../hw/task.md \
 node homework/bench.mjs --repo ../marked --ref 4562b6f^ --prompt ../hw/task.md \
   --hidden ../hw/hidden --setup "npm ci" \
   --referee "npm run -s build:esbuild && node --test --test-name-pattern=unclosed_inline_raw_tag test/run-spec-tests.js" \
-  --variant opus --runs 1 -- --model opus --allowedTools "Bash(npm *)"
+  --variant opus --runs 1 -- --model opus --setting-sources project,local --strict-mcp-config --allowedTools "Bash(npm *)"
 ```
 
 A `check-before` futásnak el kell buknia; a javítással (`--ref 4562b6f`) átmegy.
