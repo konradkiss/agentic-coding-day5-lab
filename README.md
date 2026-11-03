@@ -7,6 +7,12 @@ git clone https://github.com/konradkiss/agentic-coding-day5-lab.git
 cd agentic-coding-day5-lab
 ```
 
+## Mire kell ma
+
+Ma két dologhoz használjuk. Délelőtt egy kérdést teszünk fel az agentnek a `python/number_words.py`-ról, és megnézzük, mi van a context window-ban. A házi feladat scriptjei a `homework/` mappában vannak.
+
+A többi feladat gyakorlásnak marad itt: a port, a szószámláló gyorsítása és egy valódi hiba a markedben.
+
 ## A program
 
 A `python/number_words.py` egy egész számot betűvel ír ki, ahogy a csekken vagy a számlán szokás:
@@ -17,24 +23,24 @@ A `python/number_words.py` egy egész számot betűvel ír ki, ahogy a csekken v
 2002002     → kétmillió-kétezer-kettő
 ```
 
-Ezt portoljuk TypeScriptre, együtt, lépésről lépésre. A szabályokat a fájl elején találod. Kicsi program, de van benne néhány csapda: mikor két és mikor kettő, hová kerül kötőjel, és mikor marad el az „egy” a száz és az ezer elől.
+Gyakorlásnak portolhatod TypeScriptre. A szabályokat a fájl elején találod. Kicsi program, de van benne néhány csapda: mikor két és mikor kettő, hová kerül kötőjel, és mikor marad el az „egy” a száz és az ezer elől.
 
 ## A lassú szószámláló
 
-A `wordcount/top-words.ts` megmondja, melyik szó fordul elő a legtöbbször egy szövegben. Helyesen működik, de lassú: egy 200 000 szavas szövegen pár másodpercig dolgozik. Ezt gyorsítjuk fel úgy, hogy az eredmény ne változzon.
+A `wordcount/top-words.ts` megmondja, melyik szó fordul elő a legtöbbször egy szövegben. Helyesen működik, de lassú: egy 200 000 szavas szövegen pár másodpercig dolgozik. Gyakorlásnak felgyorsíthatod úgy, hogy az eredmény ne változzon.
 
 Az `npm run bench` három különböző szövegen méri az időt, és minden eredményt összevet az elvárttal. Ha bármelyik eredmény hibás, a mérés nem számít. Egyenlő gyakoriságnál a szavak magyar ábécérendben követik egymást (c, cs, d, dz, dzs…), ezért a sima karakterkód szerinti rendezés nem elég.
 
-## A záró feladat: egy valódi hiba
+## Gyakorlásnak: egy valódi hiba
 
-A [marked](https://github.com/markedjs/marked) Markdownból HTML-t készítő könyvtár. Egy olyan hibáját keressük meg és javítjuk ki, amelyet a fejlesztői már kijavítottak. A javítás előtti változatot töltjük le friss git-repóként, a marked saját előzményei nélkül, így a megoldás nem olvasható ki a logból.
+A [marked](https://github.com/markedjs/marked) Markdownból HTML-t készítő könyvtár. A feladat egy olyan hibája, amelyet a fejlesztői már kijavítottak. A `bug:setup` a javítás előtti változatot tölti le friss git-repóként, a marked saját előzményei nélkül, így a megoldás nem olvasható ki a logból.
 
 ```
 npm run bug:setup     # a marked javítás előtti változata a ../day5-marked mappába, telepítéssel együtt
 npm run bug:referee   # a javítás saját tesztje: letölti és lefuttatja
 ```
 
-Ezzel a hibajelentéssel dolgozunk:
+A hibajelentés:
 
 > On our documentation site, some pages show raw HTML where text should have been escaped: a `<` in a sentence ends up in the page as a real tag and breaks the layout. It seems to happen mostly on pages that talk about keyboard shortcuts. We render with `marked.parse(markdown)` and default options. I can't share the pages, sorry.
 
@@ -65,9 +71,9 @@ A `cases.json` 195 esetet tartalmaz. Az eredetinek és a portnak is mindegyiken 
 
 Claude Code és Codex alatt az agent ezek egyikét sem írhatja át: a `.claude/settings.json` és a `.codex/hooks.json` hookjai visszautasítják. opencode alatt ezt csak az `AGENTS.md` kéri. A Codex az első indításkor megkérdezi, megbízol-e a mappa hookjaiban; a hookok csak akkor futnak, ha igent mondasz. Claude Code és Codex alatt a Stop hook visszaküldi dolgozni az agentet, ha a szószámláló tesztjei elbuknak, vagy ha a port már megvan, és az `npm run check` piros. Öt sikertelen kör után a feladat visszakerül hozzád.
 
-## Ha lemaradtál
+## Kész állapotok
 
-Minden lépésnek van git tagje. Az aktuálisra így ugorhatsz:
+A port és a gyorsítás lépéseinek git tagje van. Így nézheted meg bármelyiket:
 
 ```
 git checkout <tag>
